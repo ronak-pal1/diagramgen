@@ -128,17 +128,16 @@ let globalContext: CanvasRenderingContext2D;
 const range: number = 100;
 
 const animate = (): void => {
-  requestAnimationFrame(animate);
   globalContext.clearRect(0, 0, innerWidth, innerHeight);
   rectArr.forEach((rect) => {
     rect.draw();
     rect.connectTo(originX, originY);
 
-    if (rect.isAnimateLeft) rect.x -= 0.5;
-    else rect.x += 0.5;
+    if (rect.isAnimateLeft) rect.x -= 0.4;
+    else rect.x += 0.2;
 
-    if (rect.isAnimateTop) rect.y -= 0.5;
-    else rect.y += 0.5;
+    if (rect.isAnimateTop) rect.y -= 0.2;
+    else rect.y += 0.4;
 
     if (rect.x < rect.initialX - range) rect.isAnimateLeft = false;
     else if (rect.x > rect.initialX + range) rect.isAnimateLeft = true;
@@ -146,6 +145,7 @@ const animate = (): void => {
     if (rect.y < rect.initialY - range) rect.isAnimateTop = false;
     else if (rect.y > rect.initialY + range) rect.isAnimateTop = true;
   });
+  requestAnimationFrame(animate);
 };
 
 export const drawBG = (ctx: CanvasRenderingContext2D): void => {

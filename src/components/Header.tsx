@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className="w-full h-24 flex flex-1 justify-evenly items-center border-b-2 border-b-pink-200 absolute top-0 left-0 z-50 backdrop-blur-sm ">
+    <header className="w-full h-24 flex flex-1 justify-evenly items-center border-b-2 border-b-pink-200 sticky top-0 left-0 z-50 backdrop-blur-md ">
       <div className="w-fit justify-start">
         <p className="text-3xl font-semibold text-orange-500">DiagramGen</p>
       </div>
