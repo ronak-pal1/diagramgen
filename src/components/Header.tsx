@@ -1,13 +1,17 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <header className="w-full h-24 flex flex-1 justify-evenly items-center border-b-2 border-b-pink-200 sticky top-0 left-0 z-50 backdrop-blur-md ">
       <div className="w-fit justify-start">
-        <p className="text-3xl font-semibold text-orange-500">DiagramGen</p>
+        <Link to={"/"} className="text-3xl font-semibold text-orange-500">
+          DiagramGen
+        </Link>
       </div>
 
-      <div className="flex flex-[0.3] items-center justify-evenly">
+      <div className="flex flex-[0.3] items-center justify-evenly [&>a]:cursor-pointer">
         <p>How to use?</p>
-        <p>Pricing</p>
+        <Link to={"/pricing"}>Pricing</Link>
         <p>About</p>
       </div>
 

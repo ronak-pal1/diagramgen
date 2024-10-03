@@ -1,8 +1,6 @@
 import { useEffect, useRef } from "react";
-import Header from "../components/Header";
 import { drawBG } from "../bgCanvas";
 import EditorImage from "../assets/test-editor-img.jpg";
-import Footer from "../components/Footer";
 
 const Homepage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -39,8 +37,7 @@ const Homepage = () => {
 
   return (
     <>
-      <Header />
-
+      {/* header section from layout */}
       {/* Hero section */}
       <div className="flex flex-1 items-center h-screen">
         <canvas
@@ -120,9 +117,7 @@ const Homepage = () => {
         </div>
       </div>
 
-      {/* Footer section */}
-
-      <Footer />
+      {/* Footer section from layout */}
     </>
   );
 };
