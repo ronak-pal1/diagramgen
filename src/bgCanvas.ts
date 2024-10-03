@@ -82,7 +82,7 @@ const loadAllRect = (ctx: CanvasRenderingContext2D) => {
     new Rectangle(ctx, 700, 400, 80, "AI Powered", "#fdba74", true, false)
   );
   rectArr.push(
-    new Rectangle(ctx, 900, 300, 80, "App development", "#d1ffbd", true, true)
+    new Rectangle(ctx, 900, 300, 80, "Planning", "#d1ffbd", true, true)
   );
   rectArr.push(
     new Rectangle(
