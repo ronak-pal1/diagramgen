@@ -4,17 +4,23 @@ import {
   Parallelogram,
   Rectangle,
   ShapesTypes,
+  SingleArrowLine,
 } from "./shapes";
 
 let isMouseDown: boolean = false;
 let startX: number = 0;
 let startY: number = 0;
-let activeObject: Rectangle | Circle | Parallelogram | NormalLine;
+let activeObject:
+  | Rectangle
+  | Circle
+  | Parallelogram
+  | NormalLine
+  | SingleArrowLine;
 
 class CanvasSheet {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D | null;
-  objects: (Rectangle | Circle | NormalLine)[];
+  objects: (Rectangle | Circle | NormalLine | SingleArrowLine)[];
   backContext: CanvasRenderingContext2D | null;
 
   constructor(canvas: HTMLCanvasElement) {
@@ -43,6 +49,19 @@ class CanvasSheet {
         const normalLine = new NormalLine(startX, startY, startX, startY);
         this.objects.push(normalLine);
         activeObject = normalLine;
+      } else if (drawableShape == ShapesTypes.Parallelogram) {
+        const parallelogram = new Parallelogram(startX, startY, startX, startY);
+        this.objects.push(parallelogram);
+        activeObject = parallelogram;
+      } else if (drawableShape == ShapesTypes.SingleArrowLine) {
+        const singleArrowLine = new SingleArrowLine(
+          startX,
+          startY,
+          startX,
+          startY
+        );
+        this.objects.push(singleArrowLine);
+        activeObject = singleArrowLine;
       }
     });
 
@@ -68,8 +87,22 @@ class CanvasSheet {
         activeObject.radius = mouseX - startX;
 
         if (this.context) activeObject.draw(this.context);
+      } else if (drawableShape == ShapesTypes.Parallelogram) {
+        if (!(activeObject instanceof Parallelogram)) return;
+
+        activeObject.x2 = mouseX;
+        activeObject.y2 = mouseY;
+
+        if (this.context) activeObject.draw(this.context);
       } else if (drawableShape == ShapesTypes.NormalLine) {
         if (!(activeObject instanceof NormalLine)) return;
+
+        activeObject.x2 = mouseX;
+        activeObject.y2 = mouseY;
+
+        if (this.context) activeObject.draw(this.context);
+      } else if (drawableShape == ShapesTypes.SingleArrowLine) {
+        if (!(activeObject instanceof SingleArrowLine)) return;
 
         activeObject.x2 = mouseX;
         activeObject.y2 = mouseY;
@@ -88,6 +121,7 @@ class CanvasSheet {
       });
 
       drawableShape = null;
+      this.canvas.style.cursor = "default";
     });
   }
 

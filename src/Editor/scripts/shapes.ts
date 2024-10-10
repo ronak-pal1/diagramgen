@@ -18,6 +18,7 @@ export enum ShapesTypes {
   Circle = "CIRCLE",
   Parallelogram = "PARALLELOGRAM",
   NormalLine = "NORMALLINE",
+  SingleArrowLine = "SINGLE_ARROW_LINE",
 }
 
 export class Rectangle {
@@ -77,6 +78,16 @@ export class Parallelogram {
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.moveTo(this.x1, this.y1); // top-left
+    ctx.lineTo(this.x2 + 50, this.y1); // top-right
+    ctx.lineTo(this.x2, this.y2); // bottom -right
+    ctx.lineTo(this.x1 - 50, this.y2); // bottom-left
+    ctx.closePath();
+
+    ctx.stroke();
   }
 }
 
@@ -101,6 +112,36 @@ export class NormalLine {
     ctx.moveTo(this.x1, this.y1);
     ctx.lineTo(this.x2, this.y2);
 
+    ctx.stroke();
+  }
+}
+
+export class SingleArrowLine {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+
+  constructor(x1: number, y1: number, x2: number, y2: number) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    // const slope = -1 / ((this.x2 - this.x1) / (this.y2 - this.x1));
+    ctx.beginPath();
+
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.moveTo(this.x1, this.y1);
+    ctx.lineTo(this.x2, this.y2);
+    // ctx.lineTo(this.x2 - 10, this.y2 + 10);
+    // ctx.lineTo(this.x2 + 10, this.y2 + 10);
+    // ctx.lineTo(this.x2, this.y2);
+
+    ctx.lineTo(this.x2 - 20, this.y2);
     ctx.stroke();
   }
 }

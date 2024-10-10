@@ -33,6 +33,12 @@ const Editor = () => {
     initEditor(frontCanvas, backCanvas);
   }, []);
 
+  const selectTool = (type: ShapesTypes) => {
+    if (frontCRef.current) frontCRef.current.style.cursor = "move";
+
+    setDrawableShape(type);
+  };
+
   return (
     <div>
       {/* Editor header */}
@@ -75,10 +81,10 @@ const Editor = () => {
 
       {/* tools section */}
       <div className="flex justify-center">
-        <div className="w-3/4 py-1  px-5 border border-slate-300 absolute bottom-5 rounded-[10px] z-50 bg-white flex items-center justify-center space-x-4">
+        <div className="w-3/4 py-1  px-5 border border-slate-400 absolute bottom-5 rounded-[10px] z-50 bg-white flex items-center justify-center space-x-4 shadow-md shadow-orange-100">
           <div
             className="cursor-pointer"
-            onClick={() => setDrawableShape(ShapesTypes.Rectangle)}
+            onClick={() => selectTool(ShapesTypes.Rectangle)}
           >
             <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
               <rect
@@ -95,7 +101,7 @@ const Editor = () => {
 
           <div
             className="cursor-pointer"
-            onClick={() => setDrawableShape(ShapesTypes.Circle)}
+            onClick={() => selectTool(ShapesTypes.Circle)}
           >
             <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg">
               <circle
@@ -111,7 +117,7 @@ const Editor = () => {
 
           <div
             className="cursor-pointer"
-            onClick={() => setDrawableShape(ShapesTypes.Parallelogram)}
+            onClick={() => selectTool(ShapesTypes.Parallelogram)}
           >
             <svg
               width="40"
@@ -130,7 +136,7 @@ const Editor = () => {
 
           <div
             className="cursor-pointer"
-            onClick={() => setDrawableShape(ShapesTypes.NormalLine)}
+            onClick={() => selectTool(ShapesTypes.NormalLine)}
           >
             <svg
               width="20"
@@ -146,6 +152,28 @@ const Editor = () => {
                 stroke="black"
                 strokeWidth="2"
               />
+            </svg>
+          </div>
+
+          <div
+            className="cursor-pointer"
+            onClick={() => selectTool(ShapesTypes.SingleArrowLine)}
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="2"
+                y1="18"
+                x2="18"
+                y2="2"
+                stroke="black"
+                strokeWidth="2"
+              />
+              <polygon points="7,1 18,2 19,14" fill="black" />
             </svg>
           </div>
         </div>
