@@ -4,6 +4,8 @@ import CloudOutlinedIcon from "@mui/icons-material/CloudOutlined";
 import ZoomOutMapOutlinedIcon from "@mui/icons-material/ZoomOutMapOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import { initEditor, setDrawableShape } from "./scripts/editor";
+import { ShapesTypes } from "./scripts/shapes";
 
 const Editor = () => {
   const frontCRef = useRef<HTMLCanvasElement>(null);
@@ -15,20 +17,20 @@ const Editor = () => {
     const backCanvas = backCRef.current;
     const backTempCanvas = backTempCRef.current;
 
-    if (frontCanvas) {
-      frontCanvas.width = innerWidth;
-      frontCanvas.height = innerHeight;
+    if (!(frontCanvas && backCanvas && backTempCanvas)) {
+      return;
     }
 
-    if (backCanvas) {
-      backCanvas.width = innerWidth;
-      backCanvas.height = innerHeight;
-    }
+    frontCanvas.width = innerWidth;
+    frontCanvas.height = innerHeight;
 
-    if (backTempCanvas) {
-      backTempCanvas.width = innerWidth;
-      backTempCanvas.height = innerHeight;
-    }
+    backCanvas.width = innerWidth;
+    backCanvas.height = innerHeight;
+
+    backTempCanvas.width = innerWidth;
+    backTempCanvas.height = innerHeight;
+
+    initEditor(frontCanvas, backCanvas);
   }, []);
 
   return (
@@ -58,16 +60,95 @@ const Editor = () => {
 
       {/* All the canvases */}
       <div className="relative">
-        <canvas ref={frontCRef} className="absolute top-0 left-0  z-30" />
+        <canvas
+          ref={frontCRef}
+          className="absolute top-0 left-0  z-30 bg-transparent"
+        />
 
-        <canvas ref={backCRef} className="absolute top-0 left-0  z-20" />
+        <canvas
+          ref={backCRef}
+          className="absolute top-0 left-0  z-20 bg-transparent"
+        />
 
-        <canvas ref={backTempCRef} className="" />
+        <canvas ref={backTempCRef} className="absolute top-0 left-0 z-10" />
       </div>
 
       {/* tools section */}
       <div className="flex justify-center">
-        <div className="w-3/4 h-24 shadow-2xl shadow-slate-500 border border-slate-100 absolute bottom-0 rounded-t-[50px] z-50 bg-white"></div>
+        <div className="w-3/4 py-1  px-5 border border-slate-300 absolute bottom-5 rounded-[10px] z-50 bg-white flex items-center justify-center space-x-4">
+          <div
+            className="cursor-pointer"
+            onClick={() => setDrawableShape(ShapesTypes.Rectangle)}
+          >
+            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+              <rect
+                width="20"
+                height="20"
+                rx="3"
+                ry="3"
+                fill="none"
+                stroke="black"
+                strokeWidth="3"
+              />
+            </svg>
+          </div>
+
+          <div
+            className="cursor-pointer"
+            onClick={() => setDrawableShape(ShapesTypes.Circle)}
+          >
+            <svg width="25" height="25" xmlns="http://www.w3.org/2000/svg">
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+                fill="none"
+                stroke="black"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </div>
+
+          <div
+            className="cursor-pointer"
+            onClick={() => setDrawableShape(ShapesTypes.Parallelogram)}
+          >
+            <svg
+              width="40"
+              height="20"
+              viewBox="0 0 40 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="0,0 30,0 40,20 10,20"
+                fill="none"
+                stroke="black"
+                strokeWidth="1.5"
+              />
+            </svg>
+          </div>
+
+          <div
+            className="cursor-pointer"
+            onClick={() => setDrawableShape(ShapesTypes.NormalLine)}
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="0"
+                y1="20"
+                x2="20"
+                y2="0"
+                stroke="black"
+                strokeWidth="2"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
 
       {/* shortcuts list buttons */}
