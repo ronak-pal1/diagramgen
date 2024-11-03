@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
 import { drawBG } from "../bgCanvas";
 import EditorImage from "../assets/test-editor-img.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -54,7 +57,10 @@ const Homepage = () => {
               Just write a prompt and get your diagram ready! Also customize it
               if you didn't liked it
             </p>
-            <button className="px-10 py-2 bg-orange-400 mt-12 rounded-3xl transition hover:scale-110">
+            <button
+              onClick={() => navigate("/editor")}
+              className="px-10 py-2 bg-orange-400 mt-12 rounded-3xl transition hover:scale-110"
+            >
               Get Started
             </button>
           </div>

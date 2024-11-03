@@ -56,6 +56,8 @@ export class Circle {
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
+    // ctx.imageSmoothingEnabled = true;
+    // ctx.imageSmoothingQuality = "high";
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
     ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
